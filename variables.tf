@@ -1,6 +1,6 @@
 variable "aws_region" {
   description = "AWS region"
-  default     = "us-east-1"
+  default     = "eu-west-2"
 }
 
 variable "vpc_cidr" {
@@ -15,10 +15,10 @@ variable "subnet_cidrs" {
 
 variable "ami_id" {
   description = "AMI ID for EC2 instances"
-  default     = "ami-0c02fb55956c7d316" # Amazon Linux 2 AMI
+  default     = "ami-0c41542cdc0e23561" # Amazon Linux 2 AMI
 }
 
 variable "instance_type" {
   description = "EC2 instance type"
-  default     = "t2.micro"
+  default     = "t4g.micro"
 }

@@ -2,6 +2,11 @@ provider "aws" {
   region = var.aws_region
 }
 
+# Fetch available AZs
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
 # Create VPC
 resource "aws_vpc" "main" {
   cidr_block = var.vpc_cidr
@@ -105,7 +110,7 @@ resource "aws_instance" "instances" {
   instance_type          = var.instance_type
   subnet_id              = aws_subnet.subnets[count.index].id
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
-  user_data              = file("user_data/instance_${count.index + 1}.sh")
+  user_data              = templatefile("${path.module}/user_data/instance_${count.index + 1}.sh", {})
   tags = {
     Name = "instance-${count.index + 1}"
   }
@@ -160,7 +165,7 @@ resource "aws_lb_listener_rule" "rule" {
 
   condition {
     path_pattern {
-      values = ["/images/*", "/register/*"][count.index]
+      values = [count.index == 0 ? "/images/*" : "/register/*"]
     }
   }
 }
