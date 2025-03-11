@@ -1,2 +1,3 @@
 # terraform-alb
-Repository to set up ALB and Listerner rules for traffic routing
+Repository to set up ALB and Listerner rules for traffic routing.
+
